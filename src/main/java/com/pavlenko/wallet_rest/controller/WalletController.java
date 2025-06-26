@@ -2,6 +2,9 @@ package com.pavlenko.wallet_rest.controller;
 
 import com.pavlenko.wallet_rest.entity.dto.BalanceResponse;
 import com.pavlenko.wallet_rest.entity.dto.OperationRequest;
+import com.pavlenko.wallet_rest.exception.InsufficientFundsException;
+import com.pavlenko.wallet_rest.exception.InvalidOperationException;
+import com.pavlenko.wallet_rest.exception.WalletNotFoundException;
 import com.pavlenko.wallet_rest.service.WalletService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +16,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/api/v1")
 public class WalletController {
-    private WalletService walletService;
+    private final WalletService walletService;
 
     public WalletController(WalletService walletService) {
         this.walletService = walletService;
