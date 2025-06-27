@@ -1,6 +1,5 @@
 package com.pavlenko.wallet_rest.controller;
 
-import com.pavlenko.wallet_rest.dto.BalanceResponse;
 import com.pavlenko.wallet_rest.dto.OperationRequest;
 import com.pavlenko.wallet_rest.service.WalletService;
 
