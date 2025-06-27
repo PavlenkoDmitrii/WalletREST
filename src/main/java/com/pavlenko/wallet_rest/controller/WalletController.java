@@ -42,8 +42,6 @@ public class WalletController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Недостаточно средств");
         } catch (InvalidOperationException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Некорректная операция");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка сервера");
         }
     }
 }

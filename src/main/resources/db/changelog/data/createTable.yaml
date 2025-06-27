@@ -18,4 +18,5 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: version
-                  type: INT
+                  type: BIGINT
+                  defaultValue: "0"

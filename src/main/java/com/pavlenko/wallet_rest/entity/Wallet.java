@@ -18,7 +18,7 @@ public class Wallet {
 
     @Column(name = "version")
     @Version
-    private Integer version;
+    private Long version;
 
     public UUID getId() {
         return id;
@@ -36,11 +36,11 @@ public class Wallet {
         this.balance = balance;
     }
 
-    public Integer getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(Integer version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 }
