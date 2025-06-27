@@ -1,4 +1,4 @@
-package com.pavlenko.wallet_rest.exception;
+package com.pavlenko.wallet_rest.exception_handling;
 
 public class InvalidOperationException extends RuntimeException {
     public InvalidOperationException() {

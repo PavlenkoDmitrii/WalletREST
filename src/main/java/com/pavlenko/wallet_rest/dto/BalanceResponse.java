@@ -1,9 +1,12 @@
-package com.pavlenko.wallet_rest.entity.dto;
+package com.pavlenko.wallet_rest.dto;
+
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public class BalanceResponse {
+    @NotNull(message = "walletId не может быть null")
     private UUID walletId;
     private BigDecimal balance;
 

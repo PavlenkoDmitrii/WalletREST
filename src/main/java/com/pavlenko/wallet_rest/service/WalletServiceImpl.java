@@ -1,10 +1,10 @@
 package com.pavlenko.wallet_rest.service;
 
 import com.pavlenko.wallet_rest.entity.Wallet;
-import com.pavlenko.wallet_rest.entity.dto.OperationRequest;
-import com.pavlenko.wallet_rest.exception.InsufficientFundsException;
-import com.pavlenko.wallet_rest.exception.InvalidOperationException;
-import com.pavlenko.wallet_rest.exception.WalletNotFoundException;
+import com.pavlenko.wallet_rest.dto.OperationRequest;
+import com.pavlenko.wallet_rest.exception_handling.InsufficientFundsException;
+import com.pavlenko.wallet_rest.exception_handling.InvalidOperationException;
+import com.pavlenko.wallet_rest.exception_handling.WalletNotFoundException;
 import com.pavlenko.wallet_rest.repository.WalletRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,15 +34,16 @@ public class WalletServiceImpl implements WalletService {
     public void performOperation(OperationRequest request) {
         Wallet wallet = walletRepository.findById(request.getWalletId())
                 .orElseThrow(WalletNotFoundException::new);
-        if (request.getOperation().equalsIgnoreCase("DEPOSIT")) {
-            wallet.setBalance(wallet.getBalance().add(request.getAmount()));
-        } else if (request.getOperation().equalsIgnoreCase("WITHDRAW")) {
-            if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
-                throw new InsufficientFundsException();
+
+        switch (request.getOperation()) {
+            case DEPOSIT -> wallet.setBalance(wallet.getBalance().add(request.getAmount()));
+            case WITHDRAW -> {
+                if (wallet.getBalance().compareTo(request.getAmount()) < 0) {
+                    throw new InsufficientFundsException();
+                }
+                wallet.setBalance(wallet.getBalance().subtract(request.getAmount()));
             }
-            wallet.setBalance(wallet.getBalance().subtract(request.getAmount()));
-        } else {
-            throw new InvalidOperationException();
+            default -> throw new InvalidOperationException();
         }
         walletRepository.save(wallet);
     }
